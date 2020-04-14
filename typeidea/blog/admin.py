@@ -63,12 +63,34 @@ class PostAdmin(admin.ModelAdmin):
     #编辑页面
     save_on_top = True
 
-    fields = (
-        ('category','title'),
-        'desc',
-        'status',
-        'content',
-        'tag',
+    exclude = ('owner',)
+
+    # fields = (
+    #     ('category','title'),
+    #     'desc',
+    #     'status',
+    #     'content',
+    #     'tag',
+    # )
+
+    fieldsets = (
+        ('基础配置',{
+            'description':'基础配置描述',
+            'fields':(
+                ('title','category'),
+                'status',
+            ),
+        }),
+        ('内容',{
+            'fields':(
+                'desc',
+                'content',
+            ),
+        }),
+        ('额外信息',{
+            'classes':('collapse',),
+            'fields':('tag',),
+        })
     )
 
     def operator(self,obj):
@@ -85,3 +107,13 @@ class PostAdmin(admin.ModelAdmin):
     def get_queryset(self, request):
         qs = super(PostAdmin,self).get_queryset(request)
         return qs.filter(owner=request.user)
+
+
+
+    #自定义css和js的接口
+    # class Media:
+    #     css = {
+    #         'all':("https://cdn.bootcss.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css",),
+    #     }
+    #
+    #     js = ('https://cdn.bootcss.com/bootstrap/4.0.0-beta.2/js/bootstrap.bundle.js', )
