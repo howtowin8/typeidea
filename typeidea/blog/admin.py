@@ -3,6 +3,8 @@ from django.urls import reverse
 from django.utils.html import format_html
 from .models import Post, Category, Tag
 from .adminforms import PostAdminForm
+
+from typeidea.custom_site import custom_side
 # Register your models here.
 
 class PostInline(admin.TabularInline):
@@ -11,7 +13,7 @@ class PostInline(admin.TabularInline):
     model = Post
 
 
-@admin.register(Category)
+@admin.register(Category,site=custom_side)
 class CategoryAdmin(admin.ModelAdmin):
 
     inlines = [PostInline,]
@@ -28,7 +30,7 @@ class CategoryAdmin(admin.ModelAdmin):
 
     post_count.short_description = '文章数量'
 
-@admin.register(Tag)
+@admin.register(Tag,site=custom_side)
 class TagAdmin(admin.ModelAdmin):
     list_display = ('name','status','created_time')
     fields = ('name','status')
@@ -57,7 +59,7 @@ class CategoryOwnerFilter(admin.SimpleListFilter):
             return queryset.filter(category_id=self.value())
         return queryset
 
-@admin.register(Post)
+@admin.register(Post,site=custom_side)
 class PostAdmin(admin.ModelAdmin):
     form = PostAdminForm
     list_display = [
@@ -107,7 +109,7 @@ class PostAdmin(admin.ModelAdmin):
     def operator(self,obj):
         return format_html(
             '<a href="{}">编辑</a>',
-            reverse('admin:blog_post_change', args = (obj.id,))
+            reverse('cus_admin:blog_post_change', args = (obj.id,))
         )
     operator.short_description = '操作'
 
