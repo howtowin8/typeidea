@@ -55,7 +55,7 @@ class TagView(IndexView):
         '''重写queryset，根据标签过滤'''
         queryset = super().get_queryset()
         tag_id = self.kwargs.get('tag_id')
-        return queryset.filter(tag_id=tag_id)
+        return queryset.filter(tag=tag_id)
 
 
 

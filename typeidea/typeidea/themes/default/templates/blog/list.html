@@ -5,7 +5,10 @@
     标签页：{{ tag.name }}
     {% elif category %}
     分类页：{{ category.name }}
+    {% else %}
+    首页：
     {% endif %}
+
 {% endblock %}
 
 {% block main %}
