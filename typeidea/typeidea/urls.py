@@ -22,11 +22,11 @@ from config.views import links
 from .custom_site import custom_side
 
 urlpatterns = [
-    url(r'^$',post_list),
-    url(r'^category/(?P<category_id>\d+)/$',post_list),
-    url(r'^tag/(?P<tag_id>\d+)/$',post_list),
-    url(r'^post/(?P<post_id>\d+).html$',post_detail),
-    url(r'^links/$',links),
-    url(r'^super_admin/',admin.site.urls),
-    url(r'^admin/', custom_side.urls),
+    url(r'^$',post_list, name='index'),
+    url(r'^category/(?P<category_id>\d+)/$',post_list,name='category-list'),
+    url(r'^tag/(?P<tag_id>\d+)/$',post_list,name='tag-list'),
+    url(r'^post/(?P<post_id>\d+).html$',post_detail,name='post-detail'),
+    url(r'^links/$',links,name='links'),
+    url(r'^super_admin/',admin.site.urls,name='super-admin'),
+    url(r'^admin/', custom_side.urls,name='admin'),
 ]
