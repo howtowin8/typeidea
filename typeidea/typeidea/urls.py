@@ -19,7 +19,7 @@ from django.contrib import admin
 # from blog.views import post_list,post_detail
 from blog.views import (IndexView,CategoryView,
                         TagView,PostDetailView,
-                        SearchView)
+                        SearchView,AuthorView)
 
 from config.views import links
 
@@ -35,6 +35,7 @@ urlpatterns = [
     url(r'^post/(?P<post_id>\d+).html$',PostDetailView.as_view(),name='post-detail'),
     # url(r'^post/(?P<post_id>\d+).html$',post_detail,name='post-detail'),
     url(r'^search/$',SearchView.as_view(),name='search'),
+    url(r'^author/(?P<owner_id>\d+)/$', AuthorView.as_view(),name='author'),
     url(r'^links/$',links,name='links'),
     url(r'^super_admin/',admin.site.urls,name='super-admin'),
     url(r'^admin/', custom_side.urls,name='admin'),
