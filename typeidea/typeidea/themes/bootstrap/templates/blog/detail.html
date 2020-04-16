@@ -1,6 +1,15 @@
 {% extends './base.html' %}
+{% load static %}
 {% load comment_block %}
 {% block title %} {{ post.title }} {% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/googlecode.min.css' %}">
+<script src="{% static 'js/highlight.min.js%' %}" ></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+{% endblock %}
 
 {% block main %}
     {% if post %}
@@ -16,7 +25,7 @@
             <a href="{% url 'tag-list' tag.id %}">{{ tag.name }}</a>
             {% endfor %}
         </span>
-        <p class="card-text">{{ post.content }}
+        <p class="card-text">{% autoescape off %}{{ post.content_html }}{% endautoescape %}
 
         </p>
     </div>
