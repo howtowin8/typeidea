@@ -85,7 +85,7 @@ class SideBar(models.Model):
 
         elif self.display_type == self.DISPLAY_COMMENT:
             context = {
-                'comments':Comment.objects.filter(stastus = Comment.STATUS_NORMAL)
+                'comments':Comment.objects.filter(status = Comment.STATUS_NORMAL)
             }
 
             result = render_to_string('config/blocks/sidebar_comments.html',context)
