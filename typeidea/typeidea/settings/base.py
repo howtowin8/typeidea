@@ -35,6 +35,13 @@ INSTALLED_APPS = [
     'blog',
     'config',
     'comment',
+    'xadmin',
+    'crispy_forms',
+
+    'dal',
+    'dal_select2',
+    'ckeditor',
+    'ckeditor_uploader',
 
 
     'django.contrib.admin',
@@ -127,3 +134,24 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR,'themes',THEME,'static')
 ]
+
+#ckeditor配置
+CKEDITOR_CONFIGS = {
+    'default':{
+        'toolbar':'full',
+        'height':300,
+        'width':800,
+        'tabSpaces':4,
+        'extraPlugins':'codesnippet',
+    },
+}
+
+# 配置上传路径
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+CKEDITOR_UPLOAD_PATH = 'article_images'
+
+DEFAULT_FILE_STORAGE = 'typeidea.storage.WatermarkStorage'
+
+XADMIN_TITLE = 'Mr.Huang博客系统'
+XADMIN_FOOTER_TITLE = 'POWER BY Mr.Huang'
