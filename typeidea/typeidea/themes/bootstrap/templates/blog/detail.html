@@ -4,18 +4,68 @@
 {% block title %} {{ post.title }} {% endblock %}
 
 {% block extra_head %}
-<link rel="stylesheet" href="{% static 'css/googlecode.min.css' %}">
-<script src="{% static 'js/highlight.min.js%' %}" ></script>
+<link rel="stylesheet" href="{% static 'css/github-markdown.min.css' %}">
+<link rel="stylesheet" href="{% static 'css/default.min.css' %}">
+
+<script src="{% static 'js/highlight.min.js' %}" ></script>
+<script src="{% static 'js/highlightjs-line-numbers.min.js' %}" ></script>
 <script>
     hljs.initHighlightingOnLoad();
+    hljs.initLineNumbersOnLoad();
 </script>
+<style>
+    .codehilite {
+      padding: 0;
+    }
+
+    /* for block of numbers */
+    .hljs-ln-numbers {
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      -khtml-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+
+      text-align: center;
+      color: #ccc;
+      border-right: 1px solid #CCC;
+      vertical-align: top;
+      padding-right: 5px;
+    }
+
+    .hljs-ln-n {
+      width: 30px;
+    }
+
+    /* for block of code */
+    .hljs-ln .hljs-ln-code {
+      padding-left: 10px;
+      white-space: pre;
+    }
+
+    .markdown-body {
+		box-sizing: border-box;
+		min-width: 200px;
+		max-width: 980px;
+		margin: 0 auto;
+		padding: 45px;
+	}
+
+	@media (max-width: 767px) {
+		.markdown-body {
+			padding: 15px;
+		}
+	}
+
+  </style>
 {% endblock %}
 
 {% block main %}
     {% if post %}
 <!--    <h1>{{ post.title }}</h1>-->
-    <div class="card post">
-    <div class="card-body">
+    <div class="card post markdown-body">
+    <div class="card-body ">
         <h1 class="card-title"><a href="{% url 'post-detail' post.id %}">{{ post.title }}</a></h1>
 
         <span class="card-link">作者：<a href="#">{{ post.owner.username }}</a> </span>
@@ -25,7 +75,7 @@
             <a href="{% url 'tag-list' tag.id %}">{{ tag.name }}</a>
             {% endfor %}
         </span>
-        <p class="card-text">{% autoescape off %}{{ post.content_html }}{% endautoescape %}
+        <p class="card-text ">{% autoescape off %}{{ post.content_html }}{% endautoescape %}
 
         </p>
     </div>

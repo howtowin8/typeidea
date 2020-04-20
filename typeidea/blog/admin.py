@@ -129,8 +129,8 @@ class PostAdmin(BaseOwnerAdmin):
         })
     )
 
-    filter_vertical =('tag',)
-    #filter_horizontal = ('tag',)
+    # filter_vertical =('tag',)
+    filter_horizontal = ('tag',)
 
     def operator(self,obj):
         return format_html(
