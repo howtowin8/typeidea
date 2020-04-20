@@ -36,6 +36,17 @@ import xadmin
 from .custom_site import custom_side
 from .autocomplete import CategoryAutocomplete,TagAutocomplete
 
+from rest_framework.routers import DefaultRouter
+from blog.apis import PostViewSet,CategoryViewSet,TagViewSet
+
+from rest_framework.documentation import include_docs_urls
+
+router = DefaultRouter()
+router.register(r'post',PostViewSet,basename='api-post')
+router.register(r'category',CategoryViewSet,basename='api-category')
+router.register(r"tag",TagViewSet,basename='api-tag')
+
+
 urlpatterns = [
     url(r'^$',IndexView.as_view(), name='index'),
     # url(r'^$',post_list, name='index'),
@@ -56,6 +67,11 @@ urlpatterns = [
     url(r'^category-autocomplete/$',CategoryAutocomplete.as_view(),name='category-autocomplete'),
     url(r'^tag-autocomplete/$',TagAutocomplete.as_view(),name='tag-autocomplete'),
     url(r'^ckeditor/', include('ckeditor_uploader.urls')),
-    url(r'^xadmin/',xadmin.site.urls,name='xadmin')
+    url(r'^xadmin/',xadmin.site.urls,name='xadmin'),
+
+    url(r'^api/',include(router.urls)),
+    url(r'^api/docs/',include_docs_urls(title='Mr.Huang博客 apis')),
+
+
 
 ] + static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

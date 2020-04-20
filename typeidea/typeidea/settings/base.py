@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'comment',
     'xadmin',
     'crispy_forms',
+    'rest_framework',
 
     'dal',
     'dal_select2',
@@ -67,6 +68,13 @@ ROOT_URLCONF = 'typeidea.urls'
 
 THEME = 'bootstrap'
 # THEME = 'default'
+
+REST_FRAMEWORK = {
+    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
+    'DEFAULT_PAGINATION_CLASS':'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE':2,
+}
+
 
 TEMPLATES = [
     {
