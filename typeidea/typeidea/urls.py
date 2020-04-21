@@ -20,6 +20,8 @@ from django.contrib.sitemaps import views as sitemap_views
 from django.conf import settings
 from django.conf.urls.static import static
 
+from django.views.decorators.cache import cache_page
+
 # from blog.views import post_list,post_detail
 from blog.views import (IndexView,CategoryView,
                         TagView,PostDetailView,
@@ -63,7 +65,7 @@ urlpatterns = [
     url(r'^super-admin/',admin.site.urls,name='super-admin'),
     url(r'^admin/', custom_side.urls,name='admin'),
     url(r'^rss|feed/', LatestPostFeed(),name='rss'),
-    url(r'^sitemap\.xml$',sitemap_views.sitemap,{'sitemaps':{'posts':PostSitemap}}),
+    url(r'^sitemap\.xml$',cache_page(60*20,key_prefix='sitemap_cache_')(sitemap_views.sitemap),{'sitemaps':{'posts':PostSitemap}}),
     url(r'^category-autocomplete/$',CategoryAutocomplete.as_view(),name='category-autocomplete'),
     url(r'^tag-autocomplete/$',TagAutocomplete.as_view(),name='tag-autocomplete'),
     url(r'^ckeditor/', include('ckeditor_uploader.urls')),
@@ -75,3 +77,10 @@ urlpatterns = [
 
 
 ] + static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
+
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns = [
+        url(r'^__debug__/',include(debug_toolbar.urls)),
+
+    ] + urlpatterns
